@@ -10,7 +10,7 @@
   background-repeat: no-repeat;
 }
 
-@media screen and (max-width: 555px) {
+@media screen and (max-width: 672px) {
   .profile__button_theme_add  {
     margin-top: 35px;
     margin-bottom: 0;

@@ -17,3 +17,9 @@
 .popup__form-input:last-of-type {
   padding-top: 44px;
 }
+
+@media screen and (max-width: 320px) {
+  .popup__form-input:last-of-type {
+    padding-top: 30px;
+  }
+}

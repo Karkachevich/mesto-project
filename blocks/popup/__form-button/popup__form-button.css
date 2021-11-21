@@ -11,5 +11,10 @@
   color: white;
   font-family: inherit;
   background-color: #000;
+}
 
+@media screen  and ( max-width: 320px){
+  .popup__form-button {
+    margin-bottom: 25px;
+  }
 }
