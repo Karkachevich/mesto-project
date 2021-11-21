@@ -9,4 +9,4 @@
 В проекте реализована методология БЭМ.
 **GitHub Pages**
 
-* [Ссылка GitHub Pages]()
+* [Ссылка GitHub Pages](https://karkachevich.github.io/mesto-project/)
