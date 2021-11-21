@@ -1,0 +1,8 @@
+.element__group-social {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 79px;
+  padding: 0 17px 0 21px;
+}

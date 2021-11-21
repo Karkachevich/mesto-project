@@ -1,0 +1,18 @@
+.profile__button_theme_edit {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: -48px;
+  margin-top: 37px;
+  background-image: url(../../../../images/pencil.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 555px) {
+  .profile__button_theme_edit  {
+    margin-top: 30px;
+    width: 18px;
+    height: 18px;
+  }
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Место Россия</title>
+  </head>
+  <body class="page">
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+    <main>
+      <section class="profile">
+        <div class="profile__avatar"></div>
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__hobby">Исследователь океана</p>
+          <a
+            href="#popup"
+            class="profile__button profile__button_theme_edit like-opacity"
+          ></a>
+        </div>
+        <button
+          class="profile__button profile__button_theme_add like-opacity"
+        ></button>
+      </section>
+      <section id="popup" class="popup">
+        <div class="popup__window">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" placeholder="ФИО" class="popup__form-input" />
+          <input type="text" placeholder="О себе" class="popup__form-input" />
+          <button class="popup__form-button like-opacity">Сохранить</button>
+          <a href="#" class="popup__close like-opacity"></a>
+        </div>
+      </section>
+      <section class="elements">
+        <div class="element">
+          <img
+            src="./images/kirill-pershin-1.jpg"
+            alt="фото Карачаевск"
+            class="element__image"
+          />
+          <div class="element__group-social">
+            <h2 class="element__title">Карачаевск</h2>
+            <button class="element__like like-opacity"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="./images/kirill-pershin-2.jpg"
+            alt="фото Гора Эльбрус"
+            class="element__image"
+          />
+          <div class="element__group-social">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <button class="element__like like-opacity"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="./images/kirill-pershin-3.jpg"
+            alt="фото Домбай"
+            class="element__image"
+          />
+          <div class="element__group-social">
+            <h2 class="element__title">Домбай</h2>
+            <button class="element__like like-opacity"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="./images/kirill-pershin-4.jpg"
+            alt="фото Гора Эльбрус"
+            class="element__image"
+          />
+          <div class="element__group-social">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <button class="element__like like-opacity"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="./images/kirill-pershin-5.jpg"
+            alt="фото Домбай"
+            class="element__image"
+          />
+          <div class="element__group-social">
+            <h2 class="element__title">Домбай</h2>
+            <button class="element__like like-opacity"></button>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="./images/kirill-pershin-6.jpg"
+            alt="фото Карачаево-Черкесия"
+            class="element__image"
+          />
+          <div class="element__group-social">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button class="element__like like-opacity"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer__copyright">&copy; 2021 Mesto Russia</div>
+    </footer>
+  </body>
+</html>
