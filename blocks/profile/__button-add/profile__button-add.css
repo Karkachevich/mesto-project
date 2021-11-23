@@ -1,17 +1,21 @@
-.profile__button_theme_add {
+.profile__button-add {
+  background-position: center;
+  cursor: pointer;
+  background-color: #000;
+  border: 2px solid #FFFFFF;
+  border-radius: 2px;
   width: 150px;
   height: 50px;
   align-self: flex-end;
   margin-bottom: 35px;
   margin-left: auto;
-  justify-self: flex-end;
-  background-image: url(../../../../images/plus.svg);
+  background-image: url(../../../images/plus.svg);
   background-position: center;
   background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 672px) {
-  .profile__button_theme_add  {
+  .profile__button-add  {
     margin-top: 35px;
     margin-bottom: 0;
     width: 100%;

@@ -7,10 +7,16 @@
   color: #545454;
 }
 
+@media screen and (max-width: 900px) {
+  .footer__copyright {
+    margin-left: 19px;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .footer__copyright {
-    padding-left: 14px;
-    padding-right: 17px;
+    font-size: 14px;
+    line-height: 17px;
     margin-top: 48px;
     margin-bottom: 36px;
   }

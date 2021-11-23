@@ -9,8 +9,3 @@
   height: 100%;
   background-color: rgba( 0, 0, 0, 0.5);
 }
-
-.popup:target {
-  opacity: 1;
-  visibility: visible;
-}

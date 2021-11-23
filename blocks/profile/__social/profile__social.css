@@ -1,0 +1,11 @@
+.profile__social {
+
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 672px) {
+  .profile__social {
+    width: 70%;
+  }
+}

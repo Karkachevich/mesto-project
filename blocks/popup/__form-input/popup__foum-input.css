@@ -10,15 +10,19 @@
   line-height: 17px;
   font-size: 14px;
   font-family: inherit;
-  padding: 68px 0 13px;
+  padding: 54px 0 13px;
   outline: none;
 }
 
 .popup__form-input:last-of-type {
-  padding-top: 44px;
+  padding-top: 30px;
 }
 
 @media screen and (max-width: 320px) {
+  .popup__form-input {
+    padding-top: 75px;
+  }
+
   .popup__form-input:last-of-type {
     padding-top: 30px;
   }

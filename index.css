@@ -2,9 +2,10 @@
 @import url(./Inter/inter.css);
 
 @import url(./blocks/page/page.css);
-@import url(./blocks/like-opacity/like-opacity.css);
+@import url(./blocks/button-opacity/button-opacity.css);
 
 @import url(./blocks/popup/popup.css);
+@import url(./blocks/popup/_opened/popup_opened.css);
 @import url(./blocks/popup/__window/popup__window.css);
 @import url(./blocks/popup/__title/popup__title.css);
 @import url(./blocks/popup/__form-input/popup__foum-input.css);
@@ -17,11 +18,11 @@
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar/profile__avatar.css);
 @import url(./blocks/profile/__info/profile__info.css);
+@import url(./blocks/profile/__social/profile__social.css);
 @import url(./blocks/profile/__name/profile__name.css);
 @import url(./blocks/profile/__hobby/profile__hobby.css);
-@import url(./blocks/profile/__button/profile__button.css);
-@import url(./blocks/profile/__button/_theme/profile__button_theme_add.css);
-@import url(./blocks/profile/__button/_theme/profile__button_theme_edit.css);
+@import url(./blocks/profile/__button-add/profile__button-add.css);
+@import url(./blocks/profile/__button-edit/profile__button-edit.css);
 
 @import url(./blocks/elements/elements.css);
 

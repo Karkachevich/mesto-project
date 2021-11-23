@@ -7,3 +7,9 @@
   overflow: hidden;
   background-color: #fff;
 }
+
+@media screen and (max-width: 350px){
+  .element {
+    width: 282px;
+  }
+}

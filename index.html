@@ -9,31 +9,23 @@
   </head>
   <body class="page">
     <header class="header">
-      <div class="header__logo"></div>
+      <img
+        class="header__logo"
+        src="./images/logo_white.svg"
+        alt="место Россия"
+      />
     </header>
     <main>
       <section class="profile">
         <div class="profile__avatar"></div>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <p class="profile__hobby">Исследователь океана</p>
-          <a
-            href="#popup"
-            class="profile__button profile__button_theme_edit like-opacity"
-          ></a>
+          <div class="profile__social">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <p class="profile__hobby">Исследователь океана</p>
+          </div>
+          <button type="button" class="profile__button-edit button-opacity"></button>
         </div>
-        <button
-          class="profile__button profile__button_theme_add like-opacity"
-        ></button>
-      </section>
-      <section id="popup" class="popup">
-        <div class="popup__window">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" placeholder="ФИО" class="popup__form-input" />
-          <input type="text" placeholder="О себе" class="popup__form-input" />
-          <button class="popup__form-button like-opacity">Сохранить</button>
-          <a href="#" class="popup__close like-opacity"></a>
-        </div>
+        <button type="button" class="profile__button-add button-opacity"></button>
       </section>
       <section class="elements">
         <div class="element">
@@ -44,9 +36,7 @@
           />
           <div class="element__group-social">
             <h2 class="element__title">Карачаевск</h2>
-            <button
-              class="element__like element__like_active like-opacity"
-            ></button>
+            <button type="button" type="button" class="element__like element__like_active button-opacity"></button>
           </div>
         </div>
         <div class="element">
@@ -57,9 +47,7 @@
           />
           <div class="element__group-social">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <button
-              class="element__like element__like_active like-opacity"
-            ></button>
+            <button type="button" class="element__like element__like_active button-opacity"></button>
           </div>
         </div>
         <div class="element">
@@ -70,9 +58,7 @@
           />
           <div class="element__group-social">
             <h2 class="element__title">Домбай</h2>
-            <button
-              class="element__like element__like_active like-opacity"
-            ></button>
+            <button type="button" type="button" class="element__like element__like_active button-opacity"></button>
           </div>
         </div>
         <div class="element">
@@ -83,9 +69,7 @@
           />
           <div class="element__group-social">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <button
-              class="element__like element__like_active like-opacity"
-            ></button>
+            <button type="button" class="element__like element__like_active button-opacity"></button>
           </div>
         </div>
         <div class="element">
@@ -96,9 +80,7 @@
           />
           <div class="element__group-social">
             <h2 class="element__title">Домбай</h2>
-            <button
-              class="element__like element__like_active like-opacity"
-            ></button>
+            <button type="button" class="element__like element__like_active button-opacity"></button>
           </div>
         </div>
         <div class="element">
@@ -109,11 +91,18 @@
           />
           <div class="element__group-social">
             <h2 class="element__title">Карачаево-Черкесия</h2>
-            <button
-              class="element__like element__like_active like-opacity"
-            ></button>
+            <button type="button" class="element__like element__like_active button-opacity"></button>
           </div>
         </div>
+      </section>
+      <section id="popup" class="popup popup_opened">
+        <form class="popup__window">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" name="name" placeholder="ФИО" class="popup__form-input" />
+          <input type="text" name="hobby" placeholder="О себе" class="popup__form-input" />
+          <button type="button" class="popup__form-button button-opacity">Сохранить</button>
+          <button type="button" class="popup__close button-opacity"></button>
+        </form>
       </section>
     </main>
     <footer class="footer">
