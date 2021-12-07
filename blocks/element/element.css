@@ -1,4 +1,5 @@
 .element {
+  position: relative;
   max-height: 361px;
   margin: 0 auto;
   width: 100%;
