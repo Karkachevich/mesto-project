@@ -10,12 +10,12 @@
   border-radius: 10px;
   color: #000;
   padding-top: 34px;
+  padding-left: 36px;
 }
 @media screen and (max-width: 555px) {
   .popup__window {
-    width: 282px;
+    width: 238px;
     margin-top: 123px;
-    padding-left: 0;
-    padding-top: 25px;
+    padding: 25px 22px 0;
   }
 }

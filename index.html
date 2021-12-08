@@ -18,54 +18,93 @@
     <main>
       <section class="profile">
         <div class="profile__avatar"></div>
-         <div class="profile__info">
-            <div class="profile__social">
-              <h1 class="profile__name"></h1>
-              <p class="profile__hobby"></p>
-            </div>
-          <button type="button" class="profile__button-edit button-opacity"></button>
+        <div class="profile__info">
+          <div class="profile__social">
+            <h1 class="profile__name"></h1>
+            <p class="profile__hobby"></p>
+          </div>
+          <button
+            type="button"
+            class="profile__button-edit button-opacity"
+          ></button>
         </div>
-        <button type="button" class="profile__button-add button-opacity"></button>
+        <button
+          type="button"
+          class="profile__button-add button-opacity"
+        ></button>
       </section>
-      <section class="elements">
-      </section>
-        <template id="element">
-          <div class="element">
-            <img class="element__image"/>
-            <button type="button" class="element__trash button-opacity"></button>
-            <div class="element__group-social">
-              <h2 class="element__title"></h2>
-              <button type="button" class="element__like button-opacity"></button>
-            </div>
-            <div id="popup-image" class="popup">
-              <div id="form-image" class="popup__window-image">
-                <img src="" class="popup__image" alt=""/>
-                <button id="closeButtonImage" type="button" class="popup__close button-opacity"></button>
-                <h2 class="popup__caption"></h2>
-              </div>
+      <section class="elements"></section>
+      <template id="element">
+        <div class="element">
+          <img class="element__image" />
+          <button type="button" class="element__trash button-opacity"></button>
+          <div class="element__group-social">
+            <h2 class="element__title"></h2>
+            <button type="button" class="element__like button-opacity"></button>
+          </div>
+          <div id="popup-image" class="popup">
+            <div id="form-image" class="popup__window-image">
+              <img src="" class="popup__image" alt="" />
+              <button
+                id="closeButtonImage"
+                type="button"
+                class="popup__close button-opacity"
+              ></button>
+              <h2 class="popup__caption"></h2>
             </div>
           </div>
-        </template>
+        </div>
+      </template>
       <section id="popup-edit" class="popup">
         <form id="form-edit" class="popup__window">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input id="name" type="text" placeholder="ФИО" class="popup__form-input"/>
-          <input id="hobby" type="text" placeholder="О себе" class="popup__form-input"/>
-          <button type="submit" class="popup__form-button button-opacity">Сохранить</button>
-          <button id="closeButtonEdit" type="button" class="popup__close button-opacity"></button>
+          <input
+            id="name"
+            type="text"
+            placeholder="ФИО"
+            class="popup__form-input"
+          />
+          <input
+            id="hobby"
+            type="text"
+            placeholder="О себе"
+            class="popup__form-input"
+          />
+          <button type="submit" class="popup__form-button button-opacity">
+            Сохранить
+          </button>
+          <button
+            id="closeButtonEdit"
+            type="button"
+            class="popup__close button-opacity"
+          ></button>
         </form>
       </section>
       <section id="popup-add" class="popup">
         <form id="form-add" class="popup__window">
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" id="namePlace" placeholder="Название" class="popup__form-input"/>
-          <input type="text" id="linkImage" placeholder="Ссылка на картинку" class="popup__form-input"/>
-          <button type="submit" class="popup__form-button button-opacity">Создать</button>
-          <button id="closeButtonAdd" type="button" class="popup__close button-opacity"></button>
+          <input
+            type="text"
+            id="namePlace"
+            placeholder="Название"
+            class="popup__form-input"
+          />
+          <input
+            type="text"
+            id="linkImage"
+            placeholder="Ссылка на картинку"
+            class="popup__form-input"
+          />
+          <button type="submit" class="popup__form-button button-opacity">
+            Создать
+          </button>
+          <button
+            id="closeButtonAdd"
+            type="button"
+            class="popup__close button-opacity"
+          ></button>
         </form>
       </section>
-
-    </div>
     </main>
     <footer class="footer">
       <div class="footer__copyright">&copy; 2021 Mesto Russia</div>

@@ -1,11 +1,10 @@
 .popup__form-input {
   border: 0;
   max-width: 358px;
-  width: 85%;
   height: 20px;
   border-bottom: 1px solid #bcbcc4;
   background-color: transparent;
-  margin: 0 auto;
+  margin: 0;
   font-weight: normal;
   line-height: 17px;
   font-size: 14px;
@@ -18,12 +17,8 @@
   padding-top: 30px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 555px) {
   .popup__form-input {
     padding-top: 75px;
-  }
-
-  .popup__form-input:last-of-type {
-    padding-top: 30px;
   }
 }

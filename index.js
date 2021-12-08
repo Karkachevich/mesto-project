@@ -1,4 +1,4 @@
-///////////////////////////////////////////////////////////////
+//функции открытия и закрытия ‘popup’ для редактирования профиля
 
 const popupEdit = document.querySelector('#popup-edit');
 const editButtton = document.querySelector('.profile__button-edit');
@@ -14,7 +14,7 @@ function closePopupEdit () {
 }
 closeButtonEdit.addEventListener('click', closePopupEdit);
 
-///////////////////////////////////////////////////////////////
+//функции открытия и закрытия ‘popup’ для добавления карточки
 
 const popupAdd = document.querySelector('#popup-add');
 const closeButtonAdd =document.querySelector('#closeButtonAdd');
@@ -30,25 +30,7 @@ function closePopupAdd () {
 }
 closeButtonAdd.addEventListener('click', closePopupAdd);
 
-///////////////////////////////////////////////////////////////
-
-//const popupImage = document.querySelector('#popup-image');
-//const openImage = document.querySelector('.element__image');
-//const closeButtonImage = document.querySelector('#closeButtonImage');
-
-/*function openPopupImage () {
-  popupImage.classList.add('popup_opened');
-}*/
-
-//openImage.addEventListener('click', openPopupImage);
-
-/*function closePopupImage () {
-  popupImage.classList.remove('popup_opened');
-}*/
-
-//closeButtonImage.addEventListener('click', closePopupImage);
-
-//////////////////////////////////////////////////////////////////
+//функция создания карточки и ‘popup’ для просмотра фотографии
 
 const elementsList = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content;
@@ -76,7 +58,7 @@ function addCard (link, name) {
   elementsList.prepend(element);
 }
 
-///////////////////////////////////////////////////////////////////
+//Функция для создания профиля пользователя
 
 const formPopupEdit = document.querySelector('#popup-edit');
 const nameInput = formPopupEdit.querySelector('#name');
@@ -90,7 +72,7 @@ function formSubmitEdit (evt) {
 }
 formPopupEdit.addEventListener('submit', formSubmitEdit);
 
-//////////////////////////////////////////////////////////////////
+//Функция для добавления карточки
 
 const formPopupAdd = document.querySelector('#popup-add');
 const namePlace = formPopupAdd.querySelector('#namePlace');
@@ -105,7 +87,7 @@ function formSubmitAdd (evt) {
 }
 formPopupAdd.addEventListener('submit', formSubmitAdd);
 
-/////////////////////////////////////////////////////////////////
+//Инициализация массива с карточками
 
 const initialCards = [
   {
@@ -138,5 +120,4 @@ initialCards.forEach(function (item){
   addCard(item.link, item.name)
 })
 
-/////////////////////////////////////////////////////////////////
 
