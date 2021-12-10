@@ -24,11 +24,13 @@
             <p class="profile__hobby"></p>
           </div>
           <button
+            id="popupButton"
             type="button"
             class="profile__button-edit button-opacity"
           ></button>
         </div>
         <button
+          id="popupButton"
           type="button"
           class="profile__button-add button-opacity"
         ></button>
@@ -36,22 +38,11 @@
       <section class="elements"></section>
       <template id="element">
         <div class="element">
-          <img class="element__image" />
+          <img id="popupButton" class="element__image" />
           <button type="button" class="element__trash button-opacity"></button>
           <div class="element__group-social">
             <h2 class="element__title"></h2>
             <button type="button" class="element__like button-opacity"></button>
-          </div>
-          <div id="popup-image" class="popup">
-            <div id="form-image" class="popup__window-image">
-              <img src="" class="popup__image" alt="" />
-              <button
-                id="closeButtonImage"
-                type="button"
-                class="popup__close button-opacity"
-              ></button>
-              <h2 class="popup__caption"></h2>
-            </div>
           </div>
         </div>
       </template>
@@ -80,6 +71,17 @@
           ></button>
         </form>
       </section>
+      <section id="popup-image" class="popup">
+        <div id="form-image" class="popup__window-image">
+          <img class="popup__image" alt="фото" />
+          <button
+            id="closeButtonImage"
+            type="button"
+            class="popup__close button-opacity"
+          ></button>
+          <h2 class="popup__caption"></h2>
+        </div>
+      </section>
       <section id="popup-add" class="popup">
         <form id="form-add" class="popup__window">
           <h2 class="popup__title">Новое место</h2>
@@ -88,12 +90,14 @@
             id="namePlace"
             placeholder="Название"
             class="popup__form-input"
+            autocomplete="off"
           />
           <input
             type="text"
             id="linkImage"
             placeholder="Ссылка на картинку"
             class="popup__form-input"
+            autocomplete="off"
           />
           <button type="submit" class="popup__form-button button-opacity">
             Создать
