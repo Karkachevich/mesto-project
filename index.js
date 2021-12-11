@@ -1,5 +1,8 @@
 const nameProfile = document.querySelector('.profile__name');
 const hobbyProfile = document.querySelector('.profile__hobby');
+const formPopupEdit = document.querySelector('#popup-edit');
+const nameInput = formPopupEdit.querySelector('#name');
+const hobbyInput = formPopupEdit.querySelector('#hobby');
 
 const popupEdit = document.querySelector('#popup-edit');
 const popupAdd = document.querySelector('#popup-add');
@@ -13,6 +16,14 @@ const closeButtonEdit = document.querySelector('#closeButtonEdit');
 const closeImage = document.querySelector('#closeButtonImage');
 
 const elementsList = document.querySelector('.elements');
+const elementTemplate = document.querySelector('#element').content;
+
+const image = document.querySelector('.popup__image');
+const captionImage = document.querySelector('.popup__caption');
+
+const formPopupAdd = document.querySelector('#popup-add');
+const namePlace = formPopupAdd.querySelector('#namePlace');
+const linkImage = formPopupAdd.querySelector('#linkImage');
 
 //функции открытия и закрытия ‘popup’
 function openPopup(popup) {
@@ -23,9 +34,15 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
 
+nameProfile.textContent = 'Жак-Иф Кусто';
+hobbyProfile.textContent = 'Исследователь океана';
+
 editButtton.addEventListener('click', function () {
+  nameInput.value = nameProfile.textContent;
+  hobbyInput.value = hobbyProfile.textContent;
   openPopup(popupEdit);
 });
+
 addButtton.addEventListener('click', function () {
   openPopup(popupAdd);
 });
@@ -43,9 +60,10 @@ closeButtonAdd.addEventListener('click', function () {
 //функция создания карточки
 
 function createCard(arr) {
-  const elementTemplate = document.querySelector('#element').content;
   const element = elementTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__image').src = arr.link;
+  const imageElement = element.querySelector('.element__image');
+  imageElement.src = arr.link;
+  imageElement.alt = 'фото' + ' ' + arr.name;
   element.querySelector('.element__title').textContent = arr.name;
   element.querySelector('.element__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('element__like_active');
@@ -54,22 +72,15 @@ function createCard(arr) {
     element.remove();
   });
   element.querySelector('.element__image').addEventListener('click', function (evt) {
-    document.querySelector('.popup__image').src = evt.target.src;
-    document.querySelector('.popup__caption').textContent = element.querySelector('.element__title').textContent;
+    image.src = evt.target.src;
+    captionImage.textContent = element.querySelector('.element__title').textContent;
+    image.alt = 'фото' + ' ' + captionImage.textContent;
     openPopup(popupImage);
   });
-
   return element;
 };
 
 //Функция для создания профиля пользователя
-
-const formPopupEdit = document.querySelector('#popup-edit');
-const nameInput = formPopupEdit.querySelector('#name');
-const hobbyInput = formPopupEdit.querySelector('#hobby');
-
-nameInput.value = nameProfile.textContent = 'Жак-Иф Кусто';
-hobbyInput.value = hobbyProfile.textContent = 'Исследователь океана';
 
 function getEditProfile (evt) {
   evt.preventDefault();
@@ -80,10 +91,6 @@ function getEditProfile (evt) {
 formPopupEdit.addEventListener('submit', getEditProfile);
 
 //Функция для добавления карточки
-
-const formPopupAdd = document.querySelector('#popup-add');
-const namePlace = formPopupAdd.querySelector('#namePlace');
-const linkImage = formPopupAdd.querySelector('#linkImage');
 
 function getNewCard (evt) {
   evt.preventDefault();
