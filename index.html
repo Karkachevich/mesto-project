@@ -81,7 +81,7 @@
         </div>
       </section>
       <section id="popup-add" class="popup">
-        <form id="form-add" class="popup__window">
+        <form id="form-add" class="popup__window" novalidate>
           <h2 class="popup__title">Новое место</h2>
           <input
             type="text"
@@ -89,13 +89,17 @@
             placeholder="Название"
             class="popup__form-input"
             autocomplete="off"
+            required
+            minlength="2"
           />
+          <span class="email-input-error form__input-error"></span>
           <input
-            type="text"
+            type="url"
             id="linkImage"
             placeholder="Ссылка на картинку"
             class="popup__form-input"
             autocomplete="off"
+            required
           />
           <button type="submit" class="popup__form-button button-opacity">
             Создать
