@@ -1,4 +1,4 @@
-.popup__window {
+.form {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -11,9 +11,10 @@
   color: #000;
   padding-top: 34px;
   padding-left: 36px;
+  cursor: default;
 }
 @media screen and (max-width: 555px) {
-  .popup__window {
+  .form {
     width: 238px;
     margin-top: 123px;
     padding: 25px 22px 0;

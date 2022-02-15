@@ -1,8 +1,8 @@
 const nameProfile = document.querySelector('.profile__name');
 const hobbyProfile = document.querySelector('.profile__hobby');
 const formPopupEdit = document.querySelector('#popup-edit');
-const nameInput = formPopupEdit.querySelector('#name');
-const hobbyInput = formPopupEdit.querySelector('#hobby');
+const nameInput = formPopupEdit.querySelector('#name-input');
+const hobbyInput = formPopupEdit.querySelector('#hobby-input');
 
 const popupEdit = document.querySelector('#popup-edit');
 const popupAdd = document.querySelector('#popup-add');
@@ -11,10 +11,6 @@ const popupImage = document.querySelector('#popup-image')
 const editButtton = document.querySelector('.profile__button-edit');
 const addButtton = document.querySelector('.profile__button-add');
 
-const closeButtonAdd = document.querySelector('#closeButtonAdd');
-const closeButtonEdit = document.querySelector('#closeButtonEdit');
-const closeImage = document.querySelector('#closeButtonImage');
-
 const elementsList = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content;
 
@@ -22,8 +18,10 @@ const image = document.querySelector('.popup__image');
 const captionImage = document.querySelector('.popup__caption');
 
 const formPopupAdd = document.querySelector('#popup-add');
-const namePlace = formPopupAdd.querySelector('#namePlace');
-const linkImage = formPopupAdd.querySelector('#linkImage');
+const namePlace = formPopupAdd.querySelector('#namePlace-input');
+const linkImage = formPopupAdd.querySelector('#linkImage-input');
+
+const popups = document.querySelectorAll('.popup');
 
 //функции открытия и закрытия ‘popup’
 function openPopup(popup) {
@@ -47,15 +45,23 @@ addButtton.addEventListener('click', function () {
   openPopup(popupAdd);
 });
 
-closeImage.addEventListener('click', function () {
-  closePopup(popupImage);
-});
-closeButtonEdit.addEventListener('click', function () {
-  closePopup(popupEdit);
-});
-closeButtonAdd.addEventListener('click', function () {
-  closePopup(popupAdd);
-});
+//////////////////////////////////////////
+
+popups.forEach((elm) => {
+  elm.addEventListener('click', function (e) {
+    if(e.target.classList.contains('popup')){
+      closePopup(elm);
+    }
+  })
+  elm.querySelector('.popup__close').addEventListener('click', function () {
+    closePopup(elm);
+  })
+  document.addEventListener('keydown', function (evt) {
+    if(evt.key === "Escape") {
+      closePopup(elm);
+    }
+  })
+})
 
 //функция создания карточки
 
@@ -75,6 +81,7 @@ function createCard(arr) {
     image.src = evt.target.src;
     captionImage.textContent = element.querySelector('.element__title').textContent;
     image.alt = 'фото' + ' ' + captionImage.textContent;
+    console.log(evt);
     openPopup(popupImage);
   });
   return element;
@@ -88,7 +95,6 @@ function getEditProfile (evt) {
   hobbyProfile.textContent = hobbyInput.value;
   closePopup(popupEdit);
 };
-formPopupEdit.addEventListener('submit', getEditProfile);
 
 //Функция для добавления карточки
 
@@ -101,7 +107,6 @@ function getNewCard (evt) {
   namePlace.value = '';
   closePopup(popupAdd);
 };
-formPopupAdd.addEventListener('submit', getNewCard);
 
 //Инициализация массива с карточками
 
@@ -135,3 +140,5 @@ const initialCards = [
 initialCards.forEach(function (item) {
   elementsList.append(createCard(item));
 });
+
+export { getNewCard, getEditProfile};
