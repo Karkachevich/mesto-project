@@ -36,7 +36,7 @@
       <section class="elements"></section>
       <template id="element">
         <div class="element">
-          <img class="element__image"/>
+          <img class="element__image" />
           <button type="button" class="element__trash button-opacity"></button>
           <div class="element__group-social">
             <h2 class="element__title"></h2>
@@ -45,33 +45,43 @@
         </div>
       </template>
       <section id="popup-edit" class="popup">
-        <form id="form-edit" class="popup__window">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input
-            id="name"
-            type="text"
-            placeholder="ФИО"
-            class="popup__form-input"
-          />
-          <input
-            id="hobby"
-            type="text"
-            placeholder="О себе"
-            class="popup__form-input"
-          />
-          <button type="submit" class="popup__form-button button-opacity">
-            Сохранить
-          </button>
-          <button
-            id="closeButtonEdit"
-            type="button"
-            class="popup__close button-opacity"
-          ></button>
+        <form id="form-edit" class="form" novalidate>
+          <fieldset class="form__set">
+            <h2 class="form__title">Редактировать профиль</h2>
+            <input
+              id="name-input"
+              type="text"
+              placeholder="ФИО"
+              class="form__input"
+              required
+              minlength="2"
+              maxlength="40."
+            />
+            <span class="form__input-error name-input-error"></span>
+            <input
+              id="hobby-input"
+              type="text"
+              placeholder="О себе"
+              class="form__input"
+              required
+              minlength="2"
+              maxlength="200"
+            />
+            <span class="form__input-error hobby-input-error"></span>
+            <button type="submit" class="form__button button-opacity">
+              Сохранить
+            </button>
+            <button
+              id="closeButtonEdit"
+              type="button"
+              class="popup__close button-opacity"
+            ></button>
+          </fieldset>
         </form>
       </section>
       <section id="popup-image" class="popup">
         <div id="form-image" class="popup__window-image">
-          <img src="#" class="popup__image" alt=""/>
+          <img src="#" class="popup__image" alt="" />
           <button
             id="closeButtonImage"
             type="button"
@@ -81,36 +91,45 @@
         </div>
       </section>
       <section id="popup-add" class="popup">
-        <form id="form-add" class="popup__window">
-          <h2 class="popup__title">Новое место</h2>
-          <input
-            type="text"
-            id="namePlace"
-            placeholder="Название"
-            class="popup__form-input"
-            autocomplete="off"
-          />
-          <input
-            type="text"
-            id="linkImage"
-            placeholder="Ссылка на картинку"
-            class="popup__form-input"
-            autocomplete="off"
-          />
-          <button type="submit" class="popup__form-button button-opacity">
-            Создать
-          </button>
-          <button
-            id="closeButtonAdd"
-            type="button"
-            class="popup__close button-opacity"
-          ></button>
+        <form id="form-add" class="form" novalidate>
+          <fieldset class="form__set">
+            <h2 class="form__title">Новое место</h2>
+            <input
+              type="text"
+              id="namePlace-input"
+              placeholder="Название"
+              class="form__input"
+              autocomplete="off"
+              required
+              minlength="2"
+              maxlength="30"
+            />
+            <span class="form__input-error namePlace-input-error"></span>
+            <input
+              type="url"
+              id="linkImage-input"
+              placeholder="Ссылка на картинку"
+              class="form__input"
+              autocomplete="off"
+              required
+            />
+            <span class="form__input-error linkImage-input-error"></span>
+            <button type="submit" class="form__button button-opacity">
+              Создать
+            </button>
+            <button
+              id="closeButtonAdd"
+              type="button"
+              class="popup__close button-opacity"
+            ></button>
+          </fieldset>
         </form>
       </section>
     </main>
     <footer class="footer">
       <div class="footer__copyright">&copy; 2021 Mesto Russia</div>
     </footer>
-    <script src="index.js"></script>
+    <script type="module" src="./scripts/validation.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
