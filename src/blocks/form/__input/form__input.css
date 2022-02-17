@@ -13,10 +13,6 @@
   outline: none;
 }
 
-.form__input:invalid {
-  border-bottom: 1px solid red;
-}
-
 .form__input:last-of-type {
   padding-top: 30px;
 }
