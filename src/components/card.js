@@ -38,7 +38,6 @@ function createCard(arr) {
       captionImage.textContent =
         element.querySelector(".element__title").textContent;
       image.alt = "фото" + " " + captionImage.textContent;
-      console.log(evt);
       openPopup(popupImage);
     });
   return element;

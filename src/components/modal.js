@@ -11,12 +11,18 @@ const addButtton = document.querySelector(".profile__button-add");
 nameProfile.textContent = "Жак-Иф Кусто";
 hobbyProfile.textContent = "Исследователь океана";
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-}
-
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+}
+function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  function keyEcsHadler(evt) {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+      document.removeEventListener("keydown", keyEcsHadler);
+    }
+  }
+  document.addEventListener("keydown", keyEcsHadler);
 }
 
 editButtton.addEventListener("click", function () {
@@ -35,11 +41,6 @@ popups.forEach((elm) => {
       e.target.classList.contains("popup") ||
       e.target.classList.contains("popup__close")
     ) {
-      closePopup(elm);
-    }
-  });
-  document.addEventListener("keydown", function (evt) {
-    if (evt.key === "Escape") {
       closePopup(elm);
     }
   });
