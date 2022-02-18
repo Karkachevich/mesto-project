@@ -2,4 +2,5 @@
   position: relative;
   width: fit-content;
   margin: 90px auto 0;
+  cursor: default;
 }
