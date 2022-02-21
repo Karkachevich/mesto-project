@@ -1,16 +1,3 @@
-import { getNewCard } from "./card.js";
-import { getEditProfile } from "./modal.js";
-
-const validationConfig = {
-  form: ".form",
-  inputForm: ".form__input",
-  submitButtonForm: ".form__button",
-  setForm: ".form__set",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error",
-  inactiveButtonClass: "form__button_inactive",
-};
-
 const showInputError = (formElement, inputElement, errorMessage, config) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(config.inputErrorClass);
@@ -47,8 +34,12 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(config.inactiveButtonClass);
+    buttonElement.classList.remove(config.buttonOpacity);
+    buttonElement.disabled = true;
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.classList.add(config.buttonOpacity);
+    buttonElement.disabled = false;
   }
 };
 
@@ -67,22 +58,6 @@ const setEventListeners = (formElement, config) => {
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.form));
   formList.forEach((formElement) => {
-    formElement.addEventListener("submit", function (evt) {
-      evt.preventDefault();
-      const inputList = Array.from(
-        formElement.querySelectorAll(config.inputForm)
-      );
-      const buttonElement = formElement.querySelector(config.submitButtonForm);
-      if (!hasInvalidInput(inputList)) {
-        if (evt.target.id === "form-edit") {
-          getEditProfile(evt);
-        }
-        if (evt.target.id === "form-add") {
-          getNewCard(evt);
-          toggleButtonState(inputList, buttonElement, config);
-        }
-      }
-    });
     const fieldsetList = Array.from(
       formElement.querySelectorAll(config.setForm)
     );
@@ -92,4 +67,4 @@ const enableValidation = (config) => {
   });
 };
 
-enableValidation(validationConfig);
+export { enableValidation, toggleButtonState };

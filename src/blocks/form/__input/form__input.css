@@ -9,16 +9,7 @@
   line-height: 17px;
   font-size: 14px;
   font-family: inherit;
-  padding: 54px 0 13px;
+  padding: 3px 0;
   outline: none;
 }
 
-.form__input:last-of-type {
-  padding-top: 30px;
-}
-
-@media screen and (max-width: 555px) {
-  .form__input {
-    padding-top: 75px;
-  }
-}
