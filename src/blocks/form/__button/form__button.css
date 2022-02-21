@@ -7,7 +7,7 @@
   line-height: 22px;
   border: 0;
   border-radius: 2px;
-  margin: 48px 0 37px;
+  margin: 16px 0 37px;
   cursor: pointer;
   color: white;
   background-color: #000;
@@ -16,7 +16,6 @@
 
 @media screen  and ( max-width: 320px){
   .form__button {
-    margin-top: 45px;
     margin-bottom: 25px;
     min-height: 46px;
   }

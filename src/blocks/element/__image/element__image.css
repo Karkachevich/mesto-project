@@ -4,4 +4,6 @@
   cursor: pointer;
   color: black;
   background-color: grey;
+  object-fit: cover;
+  object-position: center;
 }
