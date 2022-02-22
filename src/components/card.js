@@ -9,12 +9,6 @@ const captionImage = document.querySelector(".popup__caption");
 const elementsList = document.querySelector(".elements");
 const elementTemplate = document.querySelector("#element").content;
 
-const formCard = document.forms.card;
-const card = {
-  name: formCard.elements.name,
-  link: formCard.elements.link,
-};
-
 //функция создания карточки
 
 function createCard(card) {
@@ -47,9 +41,14 @@ function createCard(card) {
 
 function handleNewCardSubmit(evt) {
   evt.preventDefault();
-  evt.link = card.link.value;
-  evt.name = card.name.value;
-  elementsList.prepend(createCard(evt));
+  const formCard = document.querySelector(".form_type_card");
+  const nameCardInput = formCard.querySelector(".form__input_type_title").value;
+  const linkCardInput = formCard.querySelector(".form__input_type_link").value;
+  const card = {
+    name: nameCardInput,
+    link: linkCardInput,
+  };
+  elementsList.prepend(createCard(card));
   closePopup(popupCard);
   formCard.reset();
 }

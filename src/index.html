@@ -38,7 +38,7 @@
       <div class="footer__copyright">&copy; 2021 Mesto Russia</div>
     </footer>
     <section id="popup-edit" class="popup popup_type_profile">
-      <form id="form-edit" name="profile" class="form" novalidate>
+      <form id="form-edit" name="profile" class="form form_type_profile" novalidate>
         <fieldset class="form__set">
           <h2 class="form__title">Редактировать профиль</h2>
           <input
@@ -46,7 +46,7 @@
             name="name"
             type="text"
             placeholder="ФИО"
-            class="form__input"
+            class="form__input form__input_type_name"
             required
             minlength="2"
             maxlength="40"
@@ -58,7 +58,7 @@
               name="hobby"
               type="text"
               placeholder="О себе"
-              class="form__input"
+              class="form__input form__input_type_hobby"
               required
               minlength="2"
               maxlength="200"
@@ -92,15 +92,15 @@
       </div>
     </section>
     <section id="popup-add" class="popup popup_type_card-add">
-      <form id="form-add" name="card" class="form" novalidate>
+      <form id="form-add" name="card" class="form form_type_card" novalidate>
         <fieldset class="form__set">
           <h2 class="form__title">Новое место</h2>
           <input
             type="text"
             id="place-input"
-            name="name"
+            name="title"
             placeholder="Название"
-            class="form__input"
+            class="form__input form__input_type_title"
             autocomplete="off"
             required
             minlength="2"
@@ -113,7 +113,7 @@
               id="link-input"
               name="link"
               placeholder="Ссылка на картинку"
-              class="form__input"
+              class="form__input form__input_type_link"
               autocomplete="off"
               required
             />
