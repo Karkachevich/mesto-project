@@ -3,6 +3,7 @@ import { openPopup, closePopup } from "./modal.js";
 import { handleNewCardSubmit } from "./card.js";
 import { validationConfig } from "./utils.js";
 import { enableValidation, toggleButtonState } from "./validate.js";
+
 const popups = document.querySelectorAll(".popup");
 
 const popupEdit = document.querySelector(".popup_type_profile");
@@ -10,12 +11,11 @@ const popupAdd = document.querySelector(".popup_type_card-add");
 const editButton = document.querySelector(".profile__button-edit");
 const addButton = document.querySelector(".profile__button-add");
 
-const formProfile = document.forms.profile;
-const profile = {
-  name: formProfile.elements.name,
-  hobby: formProfile.elements.hobby,
-};
-const formCard = document.forms.card;
+const formProfile = document.querySelector(".form_type_profile");
+const nameProfileInput = formProfile.querySelector(".form__input_type_name");
+const hobbyProfileInput = formProfile.querySelector(".form__input_type_hobby");
+
+const formCard = document.querySelector(".form_type_card");
 const inputFormCard = Array.from(formCard.querySelectorAll(validationConfig.inputForm));
 const buttonFormCard = formCard.querySelector(validationConfig.submitButtonForm);
 
@@ -28,8 +28,8 @@ nameProfile.textContent = "Жак-Иф Кусто";
 hobbyProfile.textContent = "Исследователь океана";
 
 editButton.addEventListener("click", function () {
-  profile.name.value = nameProfile.textContent;
-  profile.hobby.value = hobbyProfile.textContent;
+  nameProfileInput.value = nameProfile.textContent;
+  hobbyProfileInput.value = hobbyProfile.textContent;
   openPopup(popupEdit);
 });
 
@@ -51,8 +51,8 @@ popups.forEach((elm) => {
 
 function getEditProfile(evt) {
   evt.preventDefault();
-  nameProfile.textContent = profile.name.value;
-  hobbyProfile.textContent = profile.hobby.value;
+  nameProfile.textContent = nameProfileInput.value;
+  hobbyProfile.textContent = hobbyProfileInput.value;
   closePopup(popupEdit);
 }
 
