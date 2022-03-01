@@ -1,0 +1,17 @@
+.profile__avatar-cover {
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.6);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(../../../images/pensel2.svg);
+}
+
+.profile__avatar-cover:hover {
+  opacity: 1;
+  cursor: pointer;
+}

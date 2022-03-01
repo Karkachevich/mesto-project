@@ -16,7 +16,13 @@
     </header>
     <main>
       <section class="profile">
-        <div class="profile__avatar"></div>
+        <div class="profile__avatar">
+          <div class="profile__avatar-cover"></div>
+          <img
+            alt="аватар"
+            class="profile__avatar-pucture"
+          />
+        </div>
         <div class="profile__info">
           <div class="profile__social">
             <h1 class="profile__name"></h1>
@@ -38,7 +44,12 @@
       <div class="footer__copyright">&copy; 2021 Mesto Russia</div>
     </footer>
     <section id="popup-edit" class="popup popup_type_profile">
-      <form id="form-edit" name="profile" class="form form_type_profile" novalidate>
+      <form
+        id="form-edit"
+        name="profile"
+        class="form form_type_profile"
+        novalidate
+      >
         <fieldset class="form__set">
           <h2 class="form__title">Редактировать профиль</h2>
           <input
@@ -130,13 +141,68 @@
         </fieldset>
       </form>
     </section>
+    <section id="popup-avatar" class="popup popup_type_avatar">
+      <form
+        id="form-avatar"
+        name="avatar"
+        class="form form_type_avatar"
+        novalidate
+      >
+        <fieldset class="form__set">
+          <h2 class="form__title">Обновить аватар</h2>
+          <label class="form__field">
+            <input
+              type="url"
+              id="avatar-input"
+              name="avatar"
+              placeholder="Ссылка на аватар"
+              class="form__input form__input_type_avatar"
+              autocomplete="off"
+              required
+            />
+            <span class="form__input-error avatar-input-error"></span>
+          </label>
+          <button type="submit" class="form__button button-opacity">
+            Сохранить
+          </button>
+          <button
+            id="closeButtonAvatar"
+            type="button"
+            class="popup__close button-opacity"
+          ></button>
+        </fieldset>
+      </form>
+    </section>
+    <section id="popup-delete" class="popup popup_type_delete">
+      <form
+        id="form-delete"
+        name="delete"
+        class="form form_type_delete"
+        novalidate
+      >
+        <fieldset class="form__set">
+          <h2 class="form__title form__title_type_delete">Вы уверены?</h2>
+          <button type="submit" class="form__button button-opacity">
+            Да
+          </button>
+          <button
+            id="closeButtonВelete"
+            type="button"
+            class="popup__close button-opacity"
+          ></button>
+        </fieldset>
+      </form>
+    </section>
     <template id="element">
       <div class="element">
         <img class="element__image" />
         <button type="button" class="element__trash button-opacity"></button>
         <div class="element__group-social">
           <h2 class="element__title"></h2>
-          <button type="button" class="element__like button-opacity"></button>
+          <div class="elemtnt__like-content">
+            <button type="button" class="element__like button-opacity"></button>
+            <div class="element__like-count"></div>
+          </div>
         </div>
       </div>
     </template>
