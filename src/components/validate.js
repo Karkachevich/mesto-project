@@ -36,10 +36,12 @@ const toggleButtonState = (inputList, buttonElement, config) => {
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.classList.remove(config.buttonOpacity);
     buttonElement.disabled = true;
+
   } else {
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.classList.add(config.buttonOpacity);
     buttonElement.disabled = false;
+    buttonElement.classList.add('form__button_active');
   }
 };
 
