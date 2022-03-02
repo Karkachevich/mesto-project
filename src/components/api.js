@@ -1,4 +1,3 @@
-import { closePopup } from "./modal.js";
 
 const config = {
   url: "https://nomoreparties.co/v1/plus-cohort7",
@@ -8,48 +7,26 @@ const config = {
   }
 };
 
-const parserResponse = (res) => {
+const checkResponse = (res) => {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(new Error(`Ошибка: ${res.status}`));
 };
 
-const renderLoading = (isLoading) => {
-  const button = document.querySelector(".form__button_active");
-  if (isLoading) {
-    button.textContent = "Сохранение...";
-  } else {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened);
-    button.textContent = "Сохранить";
-  }
-}
-
 const getCards = () => {
   return fetch(`${config.url}/cards`, {
     headers: config.hearders
-  })
-    .then((res) => parserResponse(res))
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    });
+  }).then(checkResponse);
 };
 
 const getProfile = () => {
   return fetch(`${config.url}/users/me`, {
     headers: config.hearders,
-  })
-    .then((res) => parserResponse(res))
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    });
+  }).then((res) => checkResponse(res));
 };
 
 const editProfile = (profile) => {
-  renderLoading(true);
   return fetch(`${config.url}/users/me`, {
     method: "PATCH",
     headers: config.hearders,
@@ -57,78 +34,41 @@ const editProfile = (profile) => {
       name: profile.name,
       about: profile.about
     })
-  })
-    .then((res) => parserResponse(res))
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    })
-    .finally(() => {
-      renderLoading(false);
-    });
+  }).then(checkResponse);
 };
 
 const editAvatar = (link) => {
-  renderLoading(true);
-  return fetch(`${config.url}/users/me/avatar`, {
+   return fetch(`${config.url}/users/me/avatar`, {
     method: "PATCH",
     headers: config.hearders,
     body: JSON.stringify({
       avatar: link.value
     }),
-  })
-    .then((res) => parserResponse(res))
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    })
-    .finally(() => {
-      renderLoading(false);
-    });
+  }).then(checkResponse);
 };
 
 const settingLike = (id) => {
   return fetch(`${config.url}/cards/likes/${id}`, {
     method: "PUT",
     headers: config.hearders
-  })
-    .then((res) => parserResponse(res))
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    });
+  }).then(checkResponse);
 };
 
 const removeLike = (id) => {
   return fetch(`${config.url}/cards/likes/${id}`, {
     method: "DELETE",
     headers: config.hearders
-  })
-    .then((res) => parserResponse(res))
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    });
+  }).then(checkResponse);
 };
 
 const deleteCard = (element) => {
   return fetch(`${config.url}/cards/${element.id}`, {
     method: "DELETE",
     headers: config.hearders
-  })
-    .then((res) => parserResponse(res))
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    })
-    .finally(() => {
-      const openPopup = document.querySelector(".popup_opened");
-      closePopup(openPopup);
-    });
+  }).then(checkResponse);
 };
 
 const createNewCardSubmit = (card) => {
-  renderLoading(true);
   return fetch(`${config.url}/cards`, {
     method: "POST",
     headers: config.hearders,
@@ -136,15 +76,7 @@ const createNewCardSubmit = (card) => {
       name: card.name,
       link: card.link
     }),
-  })
-    .then((res) => parserResponse(res))
-    .catch((err) => {
-      console.log(err);
-      return Promise.reject(err);
-    })
-    .finally(() => {
-      renderLoading(false);
-    });
+  }).then(checkResponse);
 };
 
 export {
