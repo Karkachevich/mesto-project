@@ -8,7 +8,12 @@ function handleEscClose(evt) {
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", handleEscClose);
+  const elementActive = document.querySelector(".element_active");
+  if(elementActive){
+    elementActive.classList.remove("element_active");
+  }
 }
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", handleEscClose);
