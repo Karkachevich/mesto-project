@@ -1,7 +1,8 @@
 import "../index.css";
 import { openPopup, closePopup } from "./modal.js";
-import { createMyCard, createCard } from "./card.js";
-import { validationConfig } from "./utils.js";
+import { createCard } from "./card.js";
+import { renderLoading } from "./utils.js";
+import { validationConfig } from "./constants";
 import { enableValidation, toggleButtonState } from "./validate.js";
 import {
   getCards,
@@ -29,7 +30,7 @@ const nameProfileInput = formProfile.querySelector(".form__input_type_name");
 const hobbyProfileInput = formProfile.querySelector(".form__input_type_hobby");
 
 const formCard = document.querySelector(".form_type_card");
-const inputFormCard = Array.from(
+const cardFormInputs = Array.from(
   formCard.querySelectorAll(validationConfig.inputForm)
 );
 const buttonFormCard = formCard.querySelector(
@@ -49,32 +50,25 @@ const hobbyProfile = document.querySelector(".profile__hobby");
 const formDelete = document.querySelector(".form_type_delete");
 const elementsList = document.querySelector(".elements");
 
-let profileId = "";
+const user = {
+  id: "",
+};
 
-getProfile()
-  .then((res) => {
-    profileId = res._id;
-    nameProfile.textContent = res.name;
-    hobbyProfile.textContent = res.about;
-    avatar.src = res.avatar;
-  })
-  .catch((err) => {
-    console.log("Ошибка загрузки профиля", err.message);
-  });
+Promise.all([getProfile(), getCards()])
+  .then(([userData, cards]) => {
+    user.id = userData._id;
+    nameProfile.textContent = userData.name;
+    hobbyProfile.textContent = userData.about;
+    avatar.src = userData.avatar;
 
-getCards()
-  .then((res) => {
-    res.forEach(function (item) {
-      let isMyLike = item.likes.filter((item) => item._id === profileId);
-      if (item.owner._id === profileId) {
-        elementsList.append(createMyCard(item));
-      } else {
-        elementsList.append(createCard(item, isMyLike.length > 0));
-      }
+    cards.forEach(function (item) {
+      const isMyLike = item.likes.filter((item) => item._id === user.id);
+      const isMyCard = item.owner._id === user.id;
+      elementsList.append(createCard(item, isMyLike.length > 0, isMyCard));
     });
   })
   .catch((err) => {
-    console.log("Ошибка загрузки карточек", err.message);
+    console.log("Ошибка загрузки данных", err.message);
   });
 
 enableValidation(validationConfig);
@@ -90,12 +84,12 @@ editButton.addEventListener("click", function () {
 });
 
 addButton.addEventListener("click", function () {
-  toggleButtonState(inputFormCard, buttonFormCard, validationConfig);
+  toggleButtonState(cardFormInputs, buttonFormCard, validationConfig);
   openPopup(popupAdd);
 });
 
 popups.forEach((elm) => {
-  elm.addEventListener("click", function (e) {
+  elm.addEventListener("mousedown", function (e) {
     if (
       e.target.classList.contains("popup") ||
       e.target.classList.contains("popup__close")
@@ -111,29 +105,44 @@ function handleProfileSubmit(evt) {
     name: nameProfileInput.value,
     about: hobbyProfileInput.value,
   };
+  renderLoading(true);
   editProfile(profile)
     .then((res) => {
       nameProfile.textContent = res.name;
       hobbyProfile.textContent = res.about;
+
+      const popupOpened = document.querySelector(".popup_opened");
+      closePopup(popupOpened);
     })
     .catch((err) => {
       console.log("Ошибка изменения профиля", err.message);
+    })
+    .finally(() => {
+      renderLoading(false);
     });
 }
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
+  renderLoading(true);
   editAvatar(linkAvatarInput)
     .then((res) => {
       avatar.src = res.avatar;
+
+      const popupOpened = document.querySelector(".popup_opened");
+      closePopup(popupOpened);
     })
     .catch((err) => {
       console.log("Ошибка изменения аватара", err.message);
+    })
+    .finally(() => {
+      renderLoading(false);
     });
 }
 
 function handleNewCardSubmit(evt) {
   evt.preventDefault();
+  renderLoading(true);
 
   const card = {
     name: nameCardInput.value,
@@ -142,13 +151,19 @@ function handleNewCardSubmit(evt) {
 
   createNewCardSubmit(card)
     .then((res) => {
-      elementsList.prepend(createMyCard(res));
+      const isMyLike = res.likes.filter((item) => item._id === user.id);
+      const isMyCard = res.owner._id === user.id;
+      elementsList.prepend(createCard(res, isMyLike.length > 0, isMyCard));
+      formCard.reset();
+      const popupOpened = document.querySelector(".popup_opened");
+      closePopup(popupOpened);
     })
     .catch((err) => {
       console.log("Ошибка создания карточки", err.message);
+    })
+    .finally(() => {
+      renderLoading(false);
     });
-
-  formCard.reset();
 }
 
 formCard.addEventListener("submit", handleNewCardSubmit);
@@ -160,8 +175,14 @@ formProfile.addEventListener("submit", handleProfileSubmit);
 formDelete.addEventListener("submit", function (evt) {
   evt.preventDefault();
   const element = document.querySelector(".element_active");
+
   deleteCard(element)
-    .then(element.remove())
+    .then(() => {
+      element.remove();
+
+      const popupOpened = document.querySelector(".popup_opened");
+      closePopup(popupOpened);
+    })
     .catch((err) => {
       console.log("Ошибка удаления карточки", err.message);
     });
