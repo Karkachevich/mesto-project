@@ -3,7 +3,7 @@ import { openPopup, closePopup } from "./modal.js";
 import { createCard } from "./card.js";
 import { renderLoading } from "./utils.js";
 import { validationConfig } from "./constants";
-import { enableValidation, toggleButtonState } from "./validate.js";
+import { enableValidation } from "./validate.js";
 import {
   getCards,
   getProfile,
@@ -12,9 +12,6 @@ import {
   deleteCard,
   createNewCardSubmit,
 } from "./api";
-
-//https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg
-//https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg
 
 const popups = document.querySelectorAll(".popup");
 
@@ -28,21 +25,17 @@ const avatarButton = document.querySelector(".profile__avatar-cover");
 const formProfile = document.querySelector(".form_type_profile");
 const nameProfileInput = formProfile.querySelector(".form__input_type_name");
 const hobbyProfileInput = formProfile.querySelector(".form__input_type_hobby");
+const formButtonProfile = formProfile.querySelector(".form__button_type_profile");
 
 const formCard = document.querySelector(".form_type_card");
-const cardFormInputs = Array.from(
-  formCard.querySelectorAll(validationConfig.inputForm)
-);
-const buttonFormCard = formCard.querySelector(
-  validationConfig.submitButtonForm
-);
-
 const nameCardInput = formCard.querySelector(".form__input_type_title");
 const linkCardInput = formCard.querySelector(".form__input_type_link");
+const formButtonCard = formCard.querySelector(".form__button_type_card");
 
 const avatar = document.querySelector(".profile__avatar-pucture");
 const formAvatar = document.querySelector(".form_type_avatar");
 const linkAvatarInput = formAvatar.querySelector(".form__input_type_avatar");
+const formButtonAvatar = formAvatar.querySelector(".form__button_type_avatar");
 
 const nameProfile = document.querySelector(".profile__name");
 const hobbyProfile = document.querySelector(".profile__hobby");
@@ -53,6 +46,8 @@ const elementsList = document.querySelector(".elements");
 const user = {
   id: "",
 };
+
+enableValidation(validationConfig);
 
 Promise.all([getProfile(), getCards()])
   .then(([userData, cards]) => {
@@ -71,20 +66,21 @@ Promise.all([getProfile(), getCards()])
     console.log("Ошибка загрузки данных", err.message);
   });
 
-enableValidation(validationConfig);
 
 avatarButton.addEventListener("click", function () {
-  openPopup(popupAvatar);
+  enableValidation(validationConfig);
+   openPopup(popupAvatar);
 });
 
 editButton.addEventListener("click", function () {
   nameProfileInput.value = nameProfile.textContent;
   hobbyProfileInput.value = hobbyProfile.textContent;
+  enableValidation(validationConfig);
   openPopup(popupEdit);
 });
 
 addButton.addEventListener("click", function () {
-  toggleButtonState(cardFormInputs, buttonFormCard, validationConfig);
+  enableValidation(validationConfig);
   openPopup(popupAdd);
 });
 
@@ -101,48 +97,45 @@ popups.forEach((elm) => {
 
 function handleProfileSubmit(evt) {
   evt.preventDefault();
+  renderLoading(true, formButtonProfile);
   const profile = {
     name: nameProfileInput.value,
     about: hobbyProfileInput.value,
   };
-  renderLoading(true);
+
   editProfile(profile)
     .then((res) => {
       nameProfile.textContent = res.name;
       hobbyProfile.textContent = res.about;
-
-      const popupOpened = document.querySelector(".popup_opened");
-      closePopup(popupOpened);
+      closePopup(popupEdit);
     })
     .catch((err) => {
       console.log("Ошибка изменения профиля", err.message);
     })
     .finally(() => {
-      renderLoading(false);
+      renderLoading(false, formButtonProfile );
     });
 }
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true);
+  renderLoading(true, formButtonAvatar);
   editAvatar(linkAvatarInput)
     .then((res) => {
       avatar.src = res.avatar;
-
-      const popupOpened = document.querySelector(".popup_opened");
-      closePopup(popupOpened);
+      closePopup(popupAvatar);
     })
     .catch((err) => {
       console.log("Ошибка изменения аватара", err.message);
     })
     .finally(() => {
-      renderLoading(false);
+      renderLoading(false, formButtonAvatar);
     });
 }
 
 function handleNewCardSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true);
+   renderLoading(true,formButtonCard);
 
   const card = {
     name: nameCardInput.value,
@@ -155,14 +148,13 @@ function handleNewCardSubmit(evt) {
       const isMyCard = res.owner._id === user.id;
       elementsList.prepend(createCard(res, isMyLike.length > 0, isMyCard));
       formCard.reset();
-      const popupOpened = document.querySelector(".popup_opened");
-      closePopup(popupOpened);
+      closePopup(popupAdd);
     })
     .catch((err) => {
       console.log("Ошибка создания карточки", err.message);
     })
     .finally(() => {
-      renderLoading(false);
+      renderLoading(false, formButtonCard);
     });
 }
 

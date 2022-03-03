@@ -1,7 +1,5 @@
 
-const renderLoading = (isLoading) => {
-  const button = document.querySelector(".form__button_active");
-  //const button = document.querySelector(".form__button");
+const renderLoading = (isLoading, button) => {
   if (isLoading) {
     button.textContent = "Сохранение...";
   } else {

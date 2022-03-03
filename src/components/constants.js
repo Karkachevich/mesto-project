@@ -7,6 +7,5 @@ export const validationConfig = {
   inputErrorClass: "form__input_type_error",
   errorClass: "form__input-error_active",
   inactiveButtonClass: "form__button_inactive",
-  buttonOpacity: "button-opacity",
-  buttonActive: "form__button_active",
+  buttonOpacity: "button-opacity"
 };
