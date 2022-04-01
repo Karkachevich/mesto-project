@@ -1,6 +1,6 @@
 import "../index.css";
 import { openPopup, closePopup } from "./modal.js";
-import { createCard } from "./card.js";
+import { createCard } from "./Card.js";
 import { renderLoading } from "./utils.js";
 import { validationConfig } from "./constants";
 import { enableValidation } from "./validate.js";
