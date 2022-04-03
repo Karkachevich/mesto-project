@@ -10,3 +10,7 @@
 **GitHub Pages**
 
 * [Ссылка GitHub Pages](https://karkachevich.github.io/mesto-project/)
+
+* Данные студента-напарника:
+  zhidkova.julia88@yandex.ru
+  https://github.com/j-aroq
