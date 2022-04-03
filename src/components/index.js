@@ -1,5 +1,6 @@
 import "../index.css";
 
+import Api from "./Api.js"
 import { validationConfig, configApi } from "./constants";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card";
@@ -8,18 +9,14 @@ import UserInfo from "./UserInfo.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithDelete from "./PopupWithDelete.js";
-import Api from "./Api.js";
-
 
 const editButton = document.querySelector(".profile__button-edit");
 const addButton = document.querySelector(".profile__button-add");
 const avatarButton = document.querySelector(".profile__avatar-cover");
-
 const formProfile = document.querySelector(".form_type_profile");
 const nameProfileInput = formProfile.querySelector(".form__input_type_name");
-
+const aboutProfileInput = formProfile.querySelector(".form__input_type_hobby");
 const formCard = document.querySelector(".form_type_card");
-
 const avatar = document.querySelector(".profile__avatar-pucture");
 const formAvatar = document.querySelector(".form_type_avatar");
 

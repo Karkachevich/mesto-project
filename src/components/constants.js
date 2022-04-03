@@ -12,7 +12,7 @@ export const validationConfig = {
 
 export const configApi = {
   url: "https://nomoreparties.co/v1/plus-cohort7",
-  hearders: {
+  headers: {
     authorization: "606c19ec-1c82-4e12-b9a2-b32d3b016e4d",
     "Content-Type": "application/json"
   }
