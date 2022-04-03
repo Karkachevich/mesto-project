@@ -8,7 +8,7 @@ export default class UserInfo {
       about: this._aboutElement.textContent,
     };
   }
-  getUserInfor() {
+  getUserInfo() {
     return this._user;
   }
 

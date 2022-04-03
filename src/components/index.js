@@ -1,34 +1,30 @@
 import "../index.css";
 
-import { validationConfig, configApi } from "./constants";
+import { validationConfig, configApi } from "./constants.js";
 import FormValidator from "./FormValidator.js";
-import Card from "./Card";
-import Section from "./Section";
+import Card from "./Card.js";
+import Section from "./Section.js";
 import UserInfo from "./UserInfo.js";
 import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImage from "./PopupWithImage.js";
 import PopupWithDelete from "./PopupWithDelete.js";
 import Api from "./Api.js";
 
-
 const editButton = document.querySelector(".profile__button-edit");
 const addButton = document.querySelector(".profile__button-add");
 const avatarButton = document.querySelector(".profile__avatar-cover");
-
 const formProfile = document.querySelector(".form_type_profile");
 const nameProfileInput = formProfile.querySelector(".form__input_type_name");
+const aboutProfileInput = formProfile.querySelector(".form__input_type_hobby");
 
 const formCard = document.querySelector(".form_type_card");
 
 const avatar = document.querySelector(".profile__avatar-pucture");
 const formAvatar = document.querySelector(".form_type_avatar");
 
-
 const user = new UserInfo({ }, ".profile__name", ".profile__hobby");
 
 const api = new Api(configApi);
-
-console.log(configApi)
 
 const popupImage = new PopupWithImage(".popup_type_picture");
 
@@ -76,7 +72,7 @@ const getCard = (data) => {
       }
     },
     handleCardDelete: () => {popupDelete.open({ element: card._element, cardId: data._id})},
-    userInf: user.getUserInfor(),
+    userInf: user.getUserInfo(),
   });
   return card.generate();
 };
@@ -174,8 +170,8 @@ avatarButton.addEventListener("click", function () {
 });
 
 editButton.addEventListener("click", function () {
-  (nameProfileInput.value = user.getUserInfor().name),
-    (aboutProfileInput.value = user.getUserInfor().about);
+  (nameProfileInput.value = user.getUserInfo().name),
+    (aboutProfileInput.value = user.getUserInfo().about);
   const formValidatorEdit = new FormValidator(validationConfig, formProfile);
   formValidatorEdit.enableValid();
   popupEdit.open();

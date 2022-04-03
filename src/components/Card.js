@@ -24,7 +24,7 @@ export default class Card {
   }
 
   _setCountLikes() {
-    this._likeCoutn.textContent = this._data.likes.length;
+    this._likeCount.textContent = this._data.likes.length;
   }
 
   updateLike(data) {
@@ -78,7 +78,7 @@ export default class Card {
     ).alt = `фото ${this._data.name}`;
     this._element.querySelector(".element__title").textContent =
       this._data.name;
-    this._likeCoutn = this._element.querySelector(".element__like-count");
+    this._likeCount = this._element.querySelector(".element__like-count");
     this._likeButton = this._element.querySelector(".element__like");
 
     if (this.isMyCard()) {
