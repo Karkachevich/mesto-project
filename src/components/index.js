@@ -28,7 +28,7 @@ const user = new UserInfo({ }, ".profile__name", ".profile__hobby");
 
 const api = new Api(configApi);
 
-console.log(configApi)
+console.log(api)
 
 const popupImage = new PopupWithImage(".popup_type_picture");
 
