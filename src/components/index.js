@@ -5,6 +5,8 @@ import { renderLoading } from "./utils.js";
 import { validationConfig } from "./constants";
 import { FormValidator } from "./FormValidator.js";
 import { Popup } from "./Popup.js";
+import { PopupWithForm } from "./PopupWithForm.js";
+import { PopupWithImage } from "./PopupWithImage.js";
 import {
   getCards,
   getProfile,
