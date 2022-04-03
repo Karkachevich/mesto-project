@@ -95,7 +95,7 @@ export default class Card {
 
 //////////////////////////////////////////////////////////////////
 import { openPopup } from "./modal.js";
-import { removeLike, settingLike } from "./Api.js";
+import { removeLike, settingLike } from "./ApiClass.js";
 
 const popupImage = document.querySelector(".popup_type_picture");
 const image = document.querySelector(".popup__image");

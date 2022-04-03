@@ -1,12 +1,14 @@
 import "../index.css";
 import { openPopup, closePopup } from "./modal.js";
-import { createCard } from "./Card.js";
+import { createCard } from "./CardClass.js";
 import { renderLoading } from "./utils.js";
 import { validationConfig } from "./constants";
 import { FormValidator } from "./FormValidator.js";
+import { UserInfo } from "./UserInfo.js";
 import { Popup } from "./Popup.js";
 import { PopupWithForm } from "./PopupWithForm.js";
 import { PopupWithImage } from "./PopupWithImage.js";
+import { PopupWithDelete } from "./PopupWithDelete.js";
 import {
   getCards,
   getProfile,
@@ -14,7 +16,7 @@ import {
   editAvatar,
   deleteCard,
   createNewCardSubmit,
-} from "./api";
+} from "./ApiClass";
 
 const popups = document.querySelectorAll(".popup");
 
