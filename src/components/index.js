@@ -4,6 +4,7 @@ import { createCard } from "./Card.js";
 import { renderLoading } from "./utils.js";
 import { validationConfig } from "./constants";
 import { FormValidator } from "./FormValidator.js";
+import { Popup } from "./Popup.js";
 import {
   getCards,
   getProfile,
