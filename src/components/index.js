@@ -106,7 +106,116 @@ const getCard = (data) => {
   return card.generate();
 };
 
+const getSection = (res) => {
+  const section = new Section(
+    {
+      data: res,
+      renderer: (item) => {
+        const cardElement = getCard(item);
+        section.addItemAppend(cardElement);
+      },
+    },
+    ".elements"
+  );
 
+  return section;
+};
+
+const myCard = new Section({ data: [] }, ".elements");
+
+const popupAvatar = new PopupWithForm({
+  selector: ".popup_type_avatar",
+  handleFormSubmit: (getInputValues) => {
+    popupAvatar.renderLoading(true);
+    api
+      .editAvatarUser(getInputValues)
+      .then((res) => {
+        avatar.src = res.avatar;
+        popupAvatar.close();
+      })
+      .catch((err) => {
+        console.log("Ошибка изменения аватара", err.message);
+      })
+      .finally(() => {
+        popupAvatar.renderLoading(false);
+      });
+  },
+});
+popupAvatar.setEventListeners();
+
+const popupEdit = new PopupWithForm({
+  selector: ".popup_type_profile",
+  handleFormSubmit: (getInputValues) => {
+    popupEdit.renderLoading(true);
+    api
+      .editProfileUser(getInputValues)
+      .then((res) => {
+        user.setUserInfo(res);
+        popupEdit.close();
+      })
+      .catch((err) => {
+        console.log("Ошибка изменения профиля", err.message);
+      })
+      .finally(() => {
+        popupEdit.renderLoading(false);
+      });
+  },
+});
+
+popupEdit.setEventListeners();
+
+const popupAdd = new PopupWithForm({
+  selector: ".popup_type_card-add",
+  handleFormSubmit: (getInputValues) => {
+    popupAdd.renderLoading(true);
+    api
+      .createCardSubmit(getInputValues)
+      .then((res) => {
+        const card = getCard(res);
+        myCard.addItemPrepend(card);
+        popupAdd.close();
+      })
+      .catch((err) => {
+        console.log("Ошибка создания карточки", err.message);
+      })
+      .finally(() => {
+        popupAdd.renderLoading(false);
+      });
+  },
+});
+
+popupAdd.setEventListeners();
+
+addButton.addEventListener("click", function () {
+  const formValidatorAdd = new FormValidator(validationConfig, formCard);
+  formValidatorAdd.enableValid();
+  popupAdd.open();
+});
+
+avatarButton.addEventListener("click", function () {
+  const formValidatorAvatar = new FormValidator(validationConfig, formAvatar);
+  formValidatorAvatar.enableValid();
+  popupAvatar.open();
+});
+
+editButton.addEventListener("click", function () {
+  (nameProfileInput.value = user.getUserInfor().name),
+    (aboutProfileInput.value = user.getUserInfor().about);
+  const formValidatorEdit = new FormValidator(validationConfig, formProfile);
+  formValidatorEdit.enableValid();
+  popupEdit.open();
+});
+
+Promise.all([api.getInitialProfile(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    user.setUserInfo(userData);
+    avatar.src = userData.avatar;
+    const section = getSection(cards);
+    section.rendererItems();
+  })
+  .catch((err) => {
+    console.log("Ошибка загрузки данных", err.message);
+  });
 
 ///////////////////////////////////////////////////////////////////////////////////
 
