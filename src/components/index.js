@@ -16,9 +16,7 @@ const avatarButton = document.querySelector(".profile__avatar-cover");
 const formProfile = document.querySelector(".form_type_profile");
 const nameProfileInput = formProfile.querySelector(".form__input_type_name");
 const aboutProfileInput = formProfile.querySelector(".form__input_type_hobby");
-
 const formCard = document.querySelector(".form_type_card");
-
 const avatar = document.querySelector(".profile__avatar-pucture");
 const formAvatar = document.querySelector(".form_type_avatar");
 
