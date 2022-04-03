@@ -2,7 +2,7 @@ import "../index.css";
 import { openPopup, closePopup } from "./modal.js";
 import { createCard } from "./CardClass.js";
 import { renderLoading } from "./utils.js";
-import { validationConfig } from "./constants";
+import { validationConfig, configApi } from "./constants";
 import { FormValidator } from "./FormValidator.js";
 import { UserInfo } from "./UserInfo.js";
 import { Popup } from "./Popup.js";
@@ -47,10 +47,70 @@ const hobbyProfile = document.querySelector(".profile__hobby");
 
 const formDelete = document.querySelector(".form_type_delete");
 const elementsList = document.querySelector(".elements");
+/////////////////////////////////////////////////////////////////////////////////
 
-const user = {
-  id: "",
+const user = new UserInfo({ }, ".profile__name", ".profile__hobby");
+
+const api = new Api(config);
+
+const popupImage = new PopupWithImage(".popup_type_picture");
+
+const popupDelete = new PopupWithDelete({
+  selector: ".popup_type_delete",
+  handleCardDelete: ({ element, cardId }) => {
+    //const elementAct = document.querySelector(".element_active");
+    //console.log(cardId)
+    api
+      .deleteMyCard(cardId)
+      .then(() => {
+        element.remove();
+        popupDelete.close();
+      })
+      .catch((err) => {
+        console.log("Ошибка удаления карточки", err.message);
+      });
+  },
+});
+
+popupDelete.setEventListeners();
+
+const getCard = (data) => {
+  const card = new Card({
+    data,
+    selector: "#element",
+    handleCardClick: () => popupImage.open(data),
+    handleCardLike: () => {
+      if (!card.isMyLike()) {
+        api
+          .settingMyLike(data._id)
+          .then((res) => {
+            card.updateLike(res);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } else {
+        api
+          .removeMylike(data._id)
+          .then((res) => {
+            card.updateLike(res);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    },
+    handleCardDelete: () => {popupDelete.open({ element: card._element, cardId: data._id})},
+    userInf: user.getUserInfor(),
+  });
+  return card.generate();
 };
+
+
+
+///////////////////////////////////////////////////////////////////////////////////
+
+
 
 enableValidation(validationConfig);
 
