@@ -17,10 +17,11 @@ const formProfile = document.querySelector(".form_type_profile");
 const nameProfileInput = formProfile.querySelector(".form__input_type_name");
 const aboutProfileInput = formProfile.querySelector(".form__input_type_hobby");
 const formCard = document.querySelector(".form_type_card");
-const avatar = document.querySelector(".profile__avatar-pucture");
+//const avatar = document.querySelector(".profile__avatar-pucture");
 const formAvatar = document.querySelector(".form_type_avatar");
 
 const user = new UserInfo({ }, ".profile__name", ".profile__hobby", ".profile__avatar-pucture");
+const userInfo = user.getUserInfo();
 
 const api = new Api(configApi);
 
@@ -70,27 +71,19 @@ const getCard = (data) => {
       }
     },
     handleCardDelete: () => {popupDelete.open({ element: card._element, cardId: data._id})},
-    userInf: user.getUserInfo(),
+    userInf: userInfo,
   });
   return card.generate();
 };
 
-const getSection = (res) => {
-  const section = new Section(
-    {
-      data: res,
-      renderer: (item) => {
-        const cardElement = getCard(item);
-        section.addItemAppend(cardElement);
-      },
-    },
-    ".elements"
-  );
 
-  return section;
-};
-
-const myCard = new Section({ data: [] }, ".elements");
+const section = new Section({
+  data: [],
+  renderer: (item) => {
+    const cardElement = getCard(item);
+    section.addItemAppend(cardElement);
+  },
+ }, ".elements");
 
 const popupAvatar = new PopupWithForm({
   selector: ".popup_type_avatar",
@@ -100,7 +93,6 @@ const popupAvatar = new PopupWithForm({
       .editAvatarUser(getInputValues)
       .then((res) => {
         user.setUserInfo(res);
-        // avatar.src = res.avatar;
         popupAvatar.close();
       })
       .catch((err) => {
@@ -142,7 +134,7 @@ const popupAdd = new PopupWithForm({
       .createCardSubmit(getInputValues)
       .then((res) => {
         const card = getCard(res);
-        myCard.addItemPrepend(card);
+        section.addItemPrepend(card);
         popupAdd.close();
       })
       .catch((err) => {
@@ -160,6 +152,7 @@ const formValidatorAdd = new FormValidator(validationConfig, formCard.querySelec
 const formValidatorAvatar = new FormValidator(validationConfig, formAvatar.querySelector(validationConfig.setForm));
 const formValidatorEdit = new FormValidator(validationConfig, formProfile.querySelector(validationConfig.setForm));
 
+
 addButton.addEventListener("click", function () {
   formValidatorAdd.enableValidation();
   popupAdd.open();
@@ -171,8 +164,8 @@ avatarButton.addEventListener("click", function () {
 });
 
 editButton.addEventListener("click", function () {
-  (nameProfileInput.value = user.getUserInfo().name),
-    (aboutProfileInput.value = user.getUserInfo().about);
+  (nameProfileInput.value = userInfo.name),
+    (aboutProfileInput.value = userInfo.about);
   formValidatorEdit.enableValidation();
   popupEdit.open();
 });
@@ -180,9 +173,7 @@ editButton.addEventListener("click", function () {
 Promise.all([api.getInitialProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
     user.setUserInfo(userData);
-    // avatar.src = userData.avatar;
-    const section = getSection(cards);
-    section.rendererItems();
+    section.rendererItems(cards);
   })
   .catch((err) => {
     console.log("Ошибка загрузки данных", err.message);
