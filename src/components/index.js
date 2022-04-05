@@ -149,11 +149,11 @@ const popupAdd = new PopupWithForm({
 
 popupAdd.setEventListeners();
 
-const formValidatorAdd = new FormValidator(validationConfig, formCard.querySelector(validationConfig.setForm));
+const formValidatorAdd = new FormValidator(validationConfig, formCard);
 formValidatorAdd.enableValidation();
-const formValidatorAvatar = new FormValidator(validationConfig, formAvatar.querySelector(validationConfig.setForm));
+const formValidatorAvatar = new FormValidator(validationConfig, formAvatar);
 formValidatorAvatar.enableValidation();
-const formValidatorEdit = new FormValidator(validationConfig, formProfile.querySelector(validationConfig.setForm));
+const formValidatorEdit = new FormValidator(validationConfig, formProfile);
 formValidatorEdit.enableValidation();
 
 
