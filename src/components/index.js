@@ -17,7 +17,6 @@ const formProfile = document.querySelector(".form_type_profile");
 const nameProfileInput = formProfile.querySelector(".form__input_type_name");
 const aboutProfileInput = formProfile.querySelector(".form__input_type_hobby");
 const formCard = document.querySelector(".form_type_card");
-//const avatar = document.querySelector(".profile__avatar-pucture");
 const formAvatar = document.querySelector(".form_type_avatar");
 
 const user = new UserInfo({ }, ".profile__name", ".profile__hobby", ".profile__avatar-pucture");
@@ -45,15 +44,15 @@ const popupDelete = new PopupWithDelete({
 
 popupDelete.setEventListeners();
 
-const getCard = (data) => {
+const getCard = (item) => {
   const card = new Card({
-    data,
+    data: item,
     selector: "#element",
-    handleCardClick: () => popupImage.open(data),
+    handleCardClick: () => popupImage.open(item),
     handleCardLike: () => {
       if (!card.isMyLike()) {
         api
-          .settingMyLike(data._id)
+          .settingMyLike(item._id)
           .then((res) => {
             card.updateLike(res);
           })
@@ -62,7 +61,7 @@ const getCard = (data) => {
           });
       } else {
         api
-          .removeMylike(data._id)
+          .removeMylike(item._id)
           .then((res) => {
             card.updateLike(res);
           })
@@ -71,7 +70,7 @@ const getCard = (data) => {
           });
       }
     },
-    handleCardDelete: () => {popupDelete.open({ element: card._element, cardId: data._id})},
+    handleCardDelete: () => {popupDelete.open({ element: card._element, cardId: item._id})},
     userInf: userInfo,
   });
   return card.generate();
@@ -158,19 +157,19 @@ formValidatorEdit.enableValidation();
 
 
 addButton.addEventListener("click", function () {
-  formValidatorAdd.disableSubmitButton();
+  formValidatorAdd.resetValidation();
   popupAdd.open();
 });
 
 avatarButton.addEventListener("click", function () {
-  formValidatorAvatar.disableSubmitButton();
+  formValidatorAvatar.resetValidation();
   popupAvatar.open();
 });
 
 editButton.addEventListener("click", function () {
   (nameProfileInput.value = userInfo.name),
     (aboutProfileInput.value = userInfo.about);
-    formValidatorEdit.disableSubmitButton();
+    formValidatorEdit.resetValidation();
     popupEdit.open();
 });
 
