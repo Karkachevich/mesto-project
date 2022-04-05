@@ -26,6 +26,7 @@ const userInfo = user.getUserInfo();
 const api = new Api(configApi);
 
 const popupImage = new PopupWithImage(".popup_type_picture");
+popupImage.setEventListeners();
 
 const popupDelete = new PopupWithDelete({
   selector: ".popup_type_delete",
@@ -149,25 +150,28 @@ const popupAdd = new PopupWithForm({
 popupAdd.setEventListeners();
 
 const formValidatorAdd = new FormValidator(validationConfig, formCard.querySelector(validationConfig.setForm));
+formValidatorAdd.enableValidation();
 const formValidatorAvatar = new FormValidator(validationConfig, formAvatar.querySelector(validationConfig.setForm));
+formValidatorAvatar.enableValidation();
 const formValidatorEdit = new FormValidator(validationConfig, formProfile.querySelector(validationConfig.setForm));
+formValidatorEdit.enableValidation();
 
 
 addButton.addEventListener("click", function () {
-  formValidatorAdd.enableValidation();
+  formValidatorAdd.disableSubmitButton();
   popupAdd.open();
 });
 
 avatarButton.addEventListener("click", function () {
-  formValidatorAvatar.enableValidation();
+  formValidatorAvatar.disableSubmitButton();
   popupAvatar.open();
 });
 
 editButton.addEventListener("click", function () {
   (nameProfileInput.value = userInfo.name),
     (aboutProfileInput.value = userInfo.about);
-  formValidatorEdit.enableValidation();
-  popupEdit.open();
+    formValidatorEdit.disableSubmitButton();
+    popupEdit.open();
 });
 
 Promise.all([api.getInitialProfile(), api.getInitialCards()])

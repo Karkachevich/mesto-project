@@ -19,8 +19,4 @@ export default class PopupWithDelete extends Popup {
     this._element = element;
     super.open();
   }
-
-  // close() {
-  //   super.close();
-  // }
 }
