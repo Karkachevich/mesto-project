@@ -8,7 +8,7 @@ export default class PopupWithDelete extends Popup {
   }
 
   setEventListeners() {
-    super._setEventListeners();
+    super.setEventListeners();
     this._elementFormDelete.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleCardDelete(this._element);
@@ -20,7 +20,7 @@ export default class PopupWithDelete extends Popup {
     super.open();
   }
 
-  close() {
-    super.close();
-  }
+  // close() {
+  //   super.close();
+  // }
 }

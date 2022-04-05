@@ -66,8 +66,9 @@ export default class FormValidator {
     });
   }
 
-  enableValid() {
-    const formElement = this._form.querySelector(this._setForm);
+  enableValidation() {
+    // const formElement = this._form.querySelector(this._setForm);
+    const formElement = this._form;
     this._setEventListeners(formElement);
   }
 }

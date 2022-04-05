@@ -1,6 +1,6 @@
 import "../index.css";
 
-import { validationConfig, configApi } from "./constants.js";
+import { validationConfig, configApi } from "./utils/constants.js";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import Section from "./Section.js";
@@ -20,7 +20,7 @@ const formCard = document.querySelector(".form_type_card");
 const avatar = document.querySelector(".profile__avatar-pucture");
 const formAvatar = document.querySelector(".form_type_avatar");
 
-const user = new UserInfo({ }, ".profile__name", ".profile__hobby");
+const user = new UserInfo({ }, ".profile__name", ".profile__hobby", ".profile__avatar-pucture");
 
 const api = new Api(configApi);
 
@@ -99,7 +99,8 @@ const popupAvatar = new PopupWithForm({
     api
       .editAvatarUser(getInputValues)
       .then((res) => {
-        avatar.src = res.avatar;
+        user.setUserInfo(res);
+        // avatar.src = res.avatar;
         popupAvatar.close();
       })
       .catch((err) => {
@@ -155,30 +156,31 @@ const popupAdd = new PopupWithForm({
 
 popupAdd.setEventListeners();
 
+const formValidatorAdd = new FormValidator(validationConfig, formCard.querySelector(validationConfig.setForm));
+const formValidatorAvatar = new FormValidator(validationConfig, formAvatar.querySelector(validationConfig.setForm));
+const formValidatorEdit = new FormValidator(validationConfig, formProfile.querySelector(validationConfig.setForm));
+
 addButton.addEventListener("click", function () {
-  const formValidatorAdd = new FormValidator(validationConfig, formCard);
-  formValidatorAdd.enableValid();
+  formValidatorAdd.enableValidation();
   popupAdd.open();
 });
 
 avatarButton.addEventListener("click", function () {
-  const formValidatorAvatar = new FormValidator(validationConfig, formAvatar);
-  formValidatorAvatar.enableValid();
+  formValidatorAvatar.enableValidation();
   popupAvatar.open();
 });
 
 editButton.addEventListener("click", function () {
   (nameProfileInput.value = user.getUserInfo().name),
     (aboutProfileInput.value = user.getUserInfo().about);
-  const formValidatorEdit = new FormValidator(validationConfig, formProfile);
-  formValidatorEdit.enableValid();
+  formValidatorEdit.enableValidation();
   popupEdit.open();
 });
 
 Promise.all([api.getInitialProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
     user.setUserInfo(userData);
-    avatar.src = userData.avatar;
+    // avatar.src = userData.avatar;
     const section = getSection(cards);
     section.rendererItems();
   })
