@@ -167,6 +167,7 @@ avatarButton.addEventListener("click", function () {
 });
 
 editButton.addEventListener("click", function () {
+  const userInfo = user.getUserInfo();
   (nameProfileInput.value = userInfo.name),
     (aboutProfileInput.value = userInfo.about);
     formValidatorEdit.resetValidation();
