@@ -1,181 +1,185 @@
 import "../index.css";
-import { openPopup, closePopup } from "./modal.js";
-import { createCard } from "./card.js";
-import { renderLoading } from "./utils.js";
-import { validationConfig } from "./constants";
-import { enableValidation } from "./validate.js";
-import {
-  getCards,
-  getProfile,
-  editProfile,
-  editAvatar,
-  deleteCard,
-  createNewCardSubmit,
-} from "./api";
 
-const popups = document.querySelectorAll(".popup");
+import { validationConfig, configApi } from "./utils/constants.js";
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
+import Section from "./Section.js";
+import UserInfo from "./UserInfo.js";
+import PopupWithForm from "./PopupWithForm.js";
+import PopupWithImage from "./PopupWithImage.js";
+import PopupWithDelete from "./PopupWithDelete.js";
+import Api from "./Api.js";
 
-const popupEdit = document.querySelector(".popup_type_profile");
-const popupAdd = document.querySelector(".popup_type_card-add");
-const popupAvatar = document.querySelector(".popup_type_avatar");
 const editButton = document.querySelector(".profile__button-edit");
 const addButton = document.querySelector(".profile__button-add");
 const avatarButton = document.querySelector(".profile__avatar-cover");
-
 const formProfile = document.querySelector(".form_type_profile");
 const nameProfileInput = formProfile.querySelector(".form__input_type_name");
-const hobbyProfileInput = formProfile.querySelector(".form__input_type_hobby");
-const formButtonProfile = formProfile.querySelector(".form__button_type_profile");
-
+const aboutProfileInput = formProfile.querySelector(".form__input_type_hobby");
 const formCard = document.querySelector(".form_type_card");
-const nameCardInput = formCard.querySelector(".form__input_type_title");
-const linkCardInput = formCard.querySelector(".form__input_type_link");
-const formButtonCard = formCard.querySelector(".form__button_type_card");
-
-const avatar = document.querySelector(".profile__avatar-pucture");
 const formAvatar = document.querySelector(".form_type_avatar");
-const linkAvatarInput = formAvatar.querySelector(".form__input_type_avatar");
-const formButtonAvatar = formAvatar.querySelector(".form__button_type_avatar");
 
-const nameProfile = document.querySelector(".profile__name");
-const hobbyProfile = document.querySelector(".profile__hobby");
+const user = new UserInfo({ }, ".profile__name", ".profile__hobby", ".profile__avatar-pucture");
+const userInfo = user.getUserInfo();
 
-const formDelete = document.querySelector(".form_type_delete");
-const elementsList = document.querySelector(".elements");
+const api = new Api(configApi);
 
-const user = {
-  id: "",
+const popupImage = new PopupWithImage(".popup_type_picture");
+popupImage.setEventListeners();
+
+const popupDelete = new PopupWithDelete({
+  selector: ".popup_type_delete",
+  handleCardDelete: ({ element, cardId }) => {
+    api
+      .deleteMyCard(cardId)
+      .then(() => {
+        element.remove();
+        popupDelete.close();
+      })
+      .catch((err) => {
+        console.log("Ошибка удаления карточки", err.message);
+      });
+  },
+});
+
+popupDelete.setEventListeners();
+
+const getCard = (item) => {
+  const card = new Card({
+    data: item,
+    selector: "#element",
+    handleCardClick: () => popupImage.open(item),
+    handleCardLike: () => {
+      if (!card.isMyLike()) {
+        api
+          .settingMyLike(item._id)
+          .then((res) => {
+            card.updateLike(res);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } else {
+        api
+          .removeMylike(item._id)
+          .then((res) => {
+            card.updateLike(res);
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      }
+    },
+    handleCardDelete: () => {popupDelete.open({ element: card._element, cardId: item._id})},
+    userInf: userInfo,
+  });
+  return card.generate();
 };
 
-enableValidation(validationConfig);
 
-Promise.all([getProfile(), getCards()])
+const section = new Section({
+  data: [],
+  renderer: (item) => {
+    const cardElement = getCard(item);
+    section.addItemAppend(cardElement);
+  },
+ }, ".elements");
+
+const popupAvatar = new PopupWithForm({
+  selector: ".popup_type_avatar",
+  handleFormSubmit: (getInputValues) => {
+    popupAvatar.renderLoading(true);
+    api
+      .editAvatarUser(getInputValues)
+      .then((res) => {
+        user.setUserInfo(res);
+        popupAvatar.close();
+      })
+      .catch((err) => {
+        console.log("Ошибка изменения аватара", err.message);
+      })
+      .finally(() => {
+        popupAvatar.renderLoading(false);
+      });
+  },
+});
+popupAvatar.setEventListeners();
+
+const popupEdit = new PopupWithForm({
+  selector: ".popup_type_profile",
+  handleFormSubmit: (getInputValues) => {
+    popupEdit.renderLoading(true);
+    api
+      .editProfileUser(getInputValues)
+      .then((res) => {
+        user.setUserInfo(res);
+        popupEdit.close();
+      })
+      .catch((err) => {
+        console.log("Ошибка изменения профиля", err.message);
+      })
+      .finally(() => {
+        popupEdit.renderLoading(false);
+      });
+  },
+});
+
+popupEdit.setEventListeners();
+
+const popupAdd = new PopupWithForm({
+  selector: ".popup_type_card-add",
+  handleFormSubmit: (getInputValues) => {
+    popupAdd.renderLoading(true);
+    api
+      .createCardSubmit(getInputValues)
+      .then((res) => {
+        const card = getCard(res);
+        section.addItemPrepend(card);
+        popupAdd.close();
+      })
+      .catch((err) => {
+        console.log("Ошибка создания карточки", err.message);
+      })
+      .finally(() => {
+        popupAdd.renderLoading(false);
+      });
+  },
+});
+
+popupAdd.setEventListeners();
+
+const formValidatorAdd = new FormValidator(validationConfig, formCard);
+formValidatorAdd.enableValidation();
+const formValidatorAvatar = new FormValidator(validationConfig, formAvatar);
+formValidatorAvatar.enableValidation();
+const formValidatorEdit = new FormValidator(validationConfig, formProfile);
+formValidatorEdit.enableValidation();
+
+
+addButton.addEventListener("click", function () {
+  formValidatorAdd.resetValidation();
+  popupAdd.open();
+});
+
+avatarButton.addEventListener("click", function () {
+  formValidatorAvatar.resetValidation();
+  popupAvatar.open();
+});
+
+editButton.addEventListener("click", function () {
+  const userInfo = user.getUserInfo();
+  (nameProfileInput.value = userInfo.name),
+    (aboutProfileInput.value = userInfo.about);
+    formValidatorEdit.resetValidation();
+    popupEdit.open();
+});
+
+Promise.all([api.getInitialProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
-    user.id = userData._id;
-    nameProfile.textContent = userData.name;
-    hobbyProfile.textContent = userData.about;
-    avatar.src = userData.avatar;
-
-    cards.forEach(function (item) {
-      const isMyLike = item.likes.filter((item) => item._id === user.id);
-      const isMyCard = item.owner._id === user.id;
-      elementsList.append(createCard(item, isMyLike.length > 0, isMyCard));
-    });
+    user.setUserInfo(userData);
+    section.rendererItems(cards);
   })
   .catch((err) => {
     console.log("Ошибка загрузки данных", err.message);
   });
 
-
-avatarButton.addEventListener("click", function () {
-  enableValidation(validationConfig);
-   openPopup(popupAvatar);
-});
-
-editButton.addEventListener("click", function () {
-  nameProfileInput.value = nameProfile.textContent;
-  hobbyProfileInput.value = hobbyProfile.textContent;
-  enableValidation(validationConfig);
-  openPopup(popupEdit);
-});
-
-addButton.addEventListener("click", function () {
-  enableValidation(validationConfig);
-  openPopup(popupAdd);
-});
-
-popups.forEach((elm) => {
-  elm.addEventListener("mousedown", function (e) {
-    if (
-      e.target.classList.contains("popup") ||
-      e.target.classList.contains("popup__close")
-    ) {
-      closePopup(elm);
-    }
-  });
-});
-
-function handleProfileSubmit(evt) {
-  evt.preventDefault();
-  renderLoading(true, formButtonProfile);
-  const profile = {
-    name: nameProfileInput.value,
-    about: hobbyProfileInput.value,
-  };
-
-  editProfile(profile)
-    .then((res) => {
-      nameProfile.textContent = res.name;
-      hobbyProfile.textContent = res.about;
-      closePopup(popupEdit);
-    })
-    .catch((err) => {
-      console.log("Ошибка изменения профиля", err.message);
-    })
-    .finally(() => {
-      renderLoading(false, formButtonProfile );
-    });
-}
-
-function handleAvatarSubmit(evt) {
-  evt.preventDefault();
-  renderLoading(true, formButtonAvatar);
-  editAvatar(linkAvatarInput)
-    .then((res) => {
-      avatar.src = res.avatar;
-      closePopup(popupAvatar);
-    })
-    .catch((err) => {
-      console.log("Ошибка изменения аватара", err.message);
-    })
-    .finally(() => {
-      renderLoading(false, formButtonAvatar);
-    });
-}
-
-function handleNewCardSubmit(evt) {
-  evt.preventDefault();
-   renderLoading(true,formButtonCard);
-
-  const card = {
-    name: nameCardInput.value,
-    link: linkCardInput.value,
-  };
-
-  createNewCardSubmit(card)
-    .then((res) => {
-      const isMyLike = res.likes.filter((item) => item._id === user.id);
-      const isMyCard = res.owner._id === user.id;
-      elementsList.prepend(createCard(res, isMyLike.length > 0, isMyCard));
-      formCard.reset();
-      closePopup(popupAdd);
-    })
-    .catch((err) => {
-      console.log("Ошибка создания карточки", err.message);
-    })
-    .finally(() => {
-      renderLoading(false, formButtonCard);
-    });
-}
-
-formCard.addEventListener("submit", handleNewCardSubmit);
-
-formAvatar.addEventListener("submit", handleAvatarSubmit);
-
-formProfile.addEventListener("submit", handleProfileSubmit);
-
-formDelete.addEventListener("submit", function (evt) {
-  evt.preventDefault();
-  const element = document.querySelector(".element_active");
-
-  deleteCard(element)
-    .then(() => {
-      element.remove();
-
-      const popupOpened = document.querySelector(".popup_opened");
-      closePopup(popupOpened);
-    })
-    .catch((err) => {
-      console.log("Ошибка удаления карточки", err.message);
-    });
-});
